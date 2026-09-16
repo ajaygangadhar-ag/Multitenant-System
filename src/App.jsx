@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import PublicRoute from "./components/PublicRoute";
 
-import Login from "./pages/Login/Login";
+import Login from "./pages/login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Users from "./pages/Users/Users";
 import Tenants from "./pages/Tenants/Tenants";
