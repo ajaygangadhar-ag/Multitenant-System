@@ -192,19 +192,30 @@ const remainingUsers = Math.max(
   // HANDLE INPUT
   // =====================================================
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
+  const {
+    name,
+    value,
+  } = e.target;
 
-    const {
-      name,
-      value,
-    } = e.target;
+  if (name === "phone") {
+    const phoneValue = value
+      .replace(/\D/g, "")
+      .slice(0, 10);
 
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      phone: phoneValue,
     }));
 
-  };
+    return;
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
 
 
   // =====================================================
@@ -248,6 +259,22 @@ const remainingUsers = Math.max(
 
       return;
     }
+
+// =================================================
+// PHONE VALIDATION
+// =================================================
+
+if (formData.phone.trim()) {
+  const phoneRegex = /^[6-9]\d{9}$/;
+
+  if (!phoneRegex.test(formData.phone.trim())) {
+    setError(
+      "Please enter a valid 10-digit Indian phone number."
+    );
+
+    return;
+  }
+}
 
 
     // =================================================
@@ -512,16 +539,16 @@ const remainingUsers = Math.max(
                 Employee ID *
               </label>
 
-              <input
-                type="text"
-                name="employeeId"
-                value={formData.employeeId}
-                onChange={handleChange}
-                placeholder="EMP001"
-                autoComplete="off"
-                required
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-800 outline-none placeholder:text-slate-400 transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-              />
+             <input
+  type="text"
+  name="employeeId"
+  value={formData.employeeId}
+  onChange={handleChange}
+  placeholder="EMP001"
+  autoComplete="off"
+  required
+  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-800 outline-none placeholder:text-slate-400 transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+/>
 
             </div>
 
@@ -637,14 +664,17 @@ const remainingUsers = Math.max(
               </label>
 
               <input
-                type="text"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="Phone number"
-                autoComplete="off"
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-800 outline-none placeholder:text-slate-400 transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-              />
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="9876543210"
+              autoComplete="off"
+              maxLength={10}
+              inputMode="numeric"
+              pattern="[6-9][0-9]{9}"
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-800 outline-none placeholder:text-slate-400 transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            />
 
             </div>
 
