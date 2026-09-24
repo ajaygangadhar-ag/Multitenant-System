@@ -26,6 +26,12 @@ import {
 } from "react-icons/hi2";
 
 
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL ||
+  (typeof window !== "undefined" && window.location.hostname === "localhost"
+    ? "http://localhost:5000"
+    : "https://multitenant-system2.vercel.app");
+
 function Profile() {
 
   const [user, setUser] = useState(null);
@@ -415,7 +421,7 @@ const handleProfileUpdate = async (e) => {
                         />
                       ) : user.profileImage ? (
                         <img
-                          src={`http://localhost:5000${user.profileImage}`}
+                          src={`${BACKEND_URL}${user.profileImage}`}
                           alt={user.name}
                           className="h-full w-full object-cover"
                         />
